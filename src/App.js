@@ -1,24 +1,37 @@
-import { Chart } from 'react-google-charts';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import LineChart from './components/googleLineChart'
+import BarChart from './components/googleBarCharts'
 
-function App() {
-  const temperatureData = [
-    ['Year', 'Highest Temperature'],
-    [2017, 32],
-    [2018, 35],
-    [2019, 31],
-    [2020, 37],
-    [2021, 30]];
-
+export default function App() {
   return (
-    <>
-    <h1>Google Line Charts</h1>
-    <div className="py-10">
-    <Chart
-                chartType="LineChart"
-                data={temperatureData}
-            />
-  </div>
-  </>
-  )}
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Line Chart</Link>
+            </li>
+            <li>
+              <Link to="/barChart">Bar Chart</Link>
+            </li>
+          </ul>
+        </nav>
 
-  export default App;
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Routes>
+          <Route path="/barChart"  element={<BarChart/>}>
+          </Route>
+          <Route path="/" element={<LineChart/>}>
+          </Route>
+        </Routes>
+      </div>
+    </Router>
+  );
+}
